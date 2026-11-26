@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Sign in | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'authen/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <section class="auth-intro" aria-labelledby="login-title">
+        <span class="eyebrow">Welcome back</span>
+        <h1>Your next chapter starts with <em>hello.</em></h1>
+        <p>Sign in to pick up where you left off and keep making space for meaningful connection.</p>
+        <div class="auth-note">
+            <span class="auth-note-mark" aria-hidden="true">♡</span>
+            <span>A more thoughtful way to find your person.</span>
+        </div>
+    </section>
+
+    <section class="auth-card" aria-labelledby="login-form-title">
+        <div class="auth-card-heading">
+            <span class="eyebrow">Good to see you again</span>
+            <h2 id="login-form-title">Sign in</h2>
+            <p>Enter your details to continue.</p>
+        </div>
+        {% for message in messages %}
+        <div class="auth-message {{ message.tags }}" role="status">{{ message }}</div>
+        {% endfor %}
+        <form class="auth-form" action="" method="POST">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for field in form %}
+                <div class="form-field{% if field.errors %} has-errors{% endif %}">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+            <button type="submit">Sign in <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="auth-forgot-link"><a href="{% url 'forgot_password' %}">Forgot your password?</a></p>
+        <p class="auth-switch">New to PromiseLane? <a href="{% url 'register' %}">Create an account</a></p>
+    </section>
+</div>
+{% endblock %}

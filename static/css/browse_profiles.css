@@ -1,0 +1,400 @@
+.browse-page {
+    display: grid;
+    gap: 1.75rem;
+}
+
+.browse-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.65rem 1.75rem;
+    border: 1px solid rgba(238, 227, 223, 0.85);
+    border-radius: 1.15rem;
+    background:
+        radial-gradient(circle at 95% 0, rgba(246, 232, 229, 0.8), transparent 17rem),
+        rgba(255, 255, 255, 0.74);
+    box-shadow: 0 14px 40px rgba(76, 48, 43, 0.045);
+}
+
+.browse-heading h1 {
+    margin: 0.25rem 0 0;
+}
+
+.browse-heading > div {
+    min-width: 0;
+}
+
+.browse-eyebrow {
+    color: var(--wine);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.browse-count {
+    flex: 0 0 auto;
+    margin: 0 0 0.35rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.75);
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.profile-filters {
+    display: grid;
+    grid-template-columns: 1.35fr repeat(2, 1fr) 1fr 1fr;
+    gap: 0.85rem;
+    align-items: end;
+    padding: 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 16px 44px rgba(76, 48, 43, 0.07);
+    backdrop-filter: blur(12px);
+}
+
+.filter-intro {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid #f1e8e4;
+}
+
+.filter-intro-icon {
+    display: grid;
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 0.75rem;
+    background: var(--rose);
+    color: var(--wine);
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.filter-intro h2 {
+    margin: 0 0 0.15rem;
+    font-size: 1.1rem;
+}
+
+.filter-intro p {
+    margin: 0;
+    font-size: 0.82rem;
+}
+
+.filter-field {
+    min-width: 0;
+}
+
+.filter-field label {
+    display: block;
+    margin: 0 0 0.15rem;
+    color: #685a56;
+    font-size: 0.78rem;
+}
+
+.profile-filters input,
+.profile-filters select {
+    margin: 0;
+    min-height: 46px;
+    font-size: 0.9rem;
+}
+
+.filter-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 0.15rem;
+}
+
+.filter-actions button {
+    min-width: 130px;
+}
+
+.clear-filter {
+    color: var(--muted);
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.clear-filter:hover {
+    color: var(--wine);
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.match-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: linear-gradient(150deg, rgba(255, 255, 255, 0.98), rgba(255, 251, 249, 0.94));
+    box-shadow: 0 14px 38px rgba(76, 48, 43, 0.07);
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.match-card:hover {
+    transform: translateY(-3px);
+    border-color: #decac4;
+    box-shadow: 0 18px 44px rgba(76, 48, 43, 0.11);
+}
+
+.match-card-top {
+    display: grid;
+    grid-template-columns: 68px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1.35rem 1.35rem 1.1rem;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.9), rgba(255, 248, 246, 0.9));
+}
+
+.match-avatar {
+    display: grid;
+    width: 68px;
+    height: 68px;
+    overflow: hidden;
+    place-items: center;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #f8ece9, #ecd5d6);
+    box-shadow: 0 7px 18px rgba(113, 48, 68, 0.15);
+    color: var(--wine);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.8rem;
+}
+
+.match-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.match-name {
+    min-width: 0;
+}
+
+.match-name h2 {
+    overflow: hidden;
+    margin: 0 0 0.15rem;
+    font-size: 1.25rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.match-name p {
+    margin: 0;
+    font-size: 0.86rem;
+}
+
+.status-badge {
+    align-self: start;
+    padding: 0.32rem 0.55rem;
+    border: 1px solid rgba(136, 61, 80, 0.08);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--wine);
+    font-size: 0.68rem;
+    font-weight: 800;
+}
+
+.match-details {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 1.1rem 1.35rem 0;
+}
+
+.match-details div {
+    min-width: 0;
+    padding: 0.55rem 0.65rem;
+    border-radius: 0.65rem;
+    background: rgba(246, 232, 229, 0.36);
+}
+
+.match-details dt {
+    margin-bottom: 0.2rem;
+    color: #9a8882;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.match-details dd {
+    overflow: hidden;
+    margin: 0;
+    color: #493f3c;
+    font-size: 0.86rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.match-about {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 1rem 1.35rem 0;
+    color: #665954;
+    font-size: 0.86rem;
+    line-height: 1.6;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.empty-results {
+    padding: 4.5rem 1.5rem;
+    border: 1px dashed #dfcfc9;
+    border-radius: 1rem;
+    background:
+        radial-gradient(circle at 50% 0, rgba(246, 232, 229, 0.8), transparent 18rem),
+        rgba(255, 255, 255, 0.76);
+    text-align: center;
+}
+
+.match-card-action {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto 1.35rem 1.35rem;
+    padding: 0.65rem 0;
+    border-top: 1px solid #f1e8e4;
+    color: var(--wine);
+    font-size: 0.86rem;
+    font-weight: 800;
+    transition: color 160ms ease;
+}
+
+.match-card-action span {
+    transition: transform 160ms ease;
+}
+
+.match-card-action:hover {
+    color: var(--wine-dark);
+}
+
+.match-card-action:hover span {
+    transform: translateX(3px);
+}
+
+.empty-results > span {
+    display: grid;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--rose);
+    color: var(--wine);
+    font-size: 1.8rem;
+}
+
+.empty-results h2 {
+    margin-bottom: 0.35rem;
+}
+
+.empty-results p {
+    margin-bottom: 1.25rem;
+}
+
+.clear-empty {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.65rem 1.1rem;
+    border: 1px solid var(--wine);
+    border-radius: 0.55rem;
+    color: var(--wine);
+    font-weight: 700;
+}
+
+@media (max-width: 900px) {
+    .profile-filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .filter-search {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 760px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .browse-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.85rem;
+        padding: 1.25rem;
+    }
+
+    .browse-count {
+        margin-top: 0.2rem;
+    }
+
+    .profile-filters {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    .filter-search,
+    .filter-actions {
+        grid-column: auto;
+    }
+
+    .filter-intro {
+        grid-column: 1 / -1;
+    }
+
+    .filter-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .clear-filter {
+        min-height: 44px;
+        text-align: center;
+    }
+
+    .match-card-top {
+        grid-template-columns: 58px minmax(0, 1fr);
+    }
+
+    .match-avatar {
+        width: 58px;
+        height: 58px;
+    }
+
+    .status-badge {
+        grid-column: 2;
+        justify-self: start;
+    }
+
+    .match-details {
+        grid-template-columns: 1fr;
+    }
+
+    .match-details dd {
+        white-space: normal;
+    }
+}

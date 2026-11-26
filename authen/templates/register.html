@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Create your account | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'authen/register.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+    <section class="auth-intro" aria-labelledby="register-title">
+        <span class="eyebrow">A thoughtful way to meet</span>
+        <h1 id="register-title">Make room for <em>something real.</em></h1>
+        <p>Start with the basics. Your next meaningful connection could be closer than you think.</p>
+        <div class="auth-note">
+            <span class="auth-note-mark" aria-hidden="true">♡</span>
+            <span>Built for genuine connections and shared futures.</span>
+        </div>
+    </section>
+
+    <section class="auth-card" aria-labelledby="register-form-title">
+        <div class="auth-card-heading">
+            <span class="eyebrow">Your story starts here</span>
+            <h2 id="register-form-title">Create your account</h2>
+            <p>It only takes a moment to get started.</p>
+        </div>
+        <form class="auth-form" action="" method="POST">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for field in form %}
+            <div class="form-field{% if field.errors %} has-errors{% endif %}">
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+            {% endfor %}
+            <button type="submit">Create account <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="auth-switch">Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
+    </section>
+</div>
+{% endblock %}

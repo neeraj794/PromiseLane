@@ -1,0 +1,56 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Blocked users | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'connections/blocked_users.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="blocked-page">
+    <header class="blocked-heading">
+        <div>
+            <span class="blocked-eyebrow">Privacy &amp; safety</span>
+            <h1>Blocked users</h1>
+            <p>Manage the people you have chosen to block.</p>
+        </div>
+        <span class="blocked-count">{{ blocked_list|length }} blocked</span>
+    </header>
+
+    {% if messages %}
+    <div class="blocked-notices" aria-live="polite">
+        {% for message in messages %}
+        <p class="blocked-notice {{ message.tags }}" role="status">{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if blocked_list %}
+    <div class="blocked-list">
+        {% for item in blocked_list %}
+        <article class="blocked-card">
+            <span class="blocked-avatar" aria-hidden="true">
+                {{ item.blocked.first_name|first|default:item.blocked.username|first|upper }}
+            </span>
+            <div class="blocked-identity">
+                <span class="blocked-label">Blocked member</span>
+                <h2>{{ item.blocked.get_full_name|default:item.blocked.username }}</h2>
+                <p>@{{ item.blocked.username }} <span aria-hidden="true">·</span> Blocked {{ item.created_at|date:"M j, Y" }}</p>
+            </div>
+            <form class="blocked-form" action="{% url 'unblock_user' item.id %}" method="POST">
+                {% csrf_token %}
+                <button class="unblock-button" type="submit">Unblock</button>
+            </form>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <section class="blocked-empty">
+        <span class="blocked-empty-icon" aria-hidden="true">♡</span>
+        <h2>Your blocked list is clear</h2>
+        <p>Members you block will appear here. You can unblock them whenever you choose.</p>
+        <a class="blocked-browse-link" href="{% url 'browse_profiles' %}">Browse profiles</a>
+    </section>
+    {% endif %}
+</section>
+{% endblock %}

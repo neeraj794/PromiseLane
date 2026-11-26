@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Sent interests | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'connections/interests.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="interests-page">
+    <header class="interests-heading">
+        <div>
+            <span class="interests-eyebrow">Your connections</span>
+            <h1>Sent interests</h1>
+            <p>Keep track of the people you've reached out to.</p>
+        </div>
+        <span class="interests-count">{{ interests|length }} sent</span>
+    </header>
+
+    {% if interests %}
+    <div class="interest-list">
+        {% for interest in interests %}
+        <article class="interest-card">
+            <div class="interest-avatar" aria-hidden="true">
+                {{ interest.receiver.first_name|first|default:interest.receiver.username|first|upper }}
+            </div>
+            <div class="interest-person">
+                <span class="interest-label">You sent an interest to</span>
+                <h2>{{ interest.receiver.get_full_name|default:interest.receiver.username }}</h2>
+                <p>@{{ interest.receiver.username }}</p>
+            </div>
+            <div class="interest-meta">
+                <span class="interest-status interest-status-{{ interest.status|lower }}">{{ interest.status }}</span>
+                <time datetime="{{ interest.created_at|date:'c' }}">Sent {{ interest.created_at|date:"M j, Y" }}</time>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <section class="interests-empty">
+        <span class="interests-empty-icon" aria-hidden="true">♡</span>
+        <h2>No sent interests yet</h2>
+        <p>When someone catches your eye, send them an interest and you'll find it here.</p>
+        <a class="interests-link" href="{% url 'browse_profiles' %}">Explore profiles</a>
+    </section>
+    {% endif %}
+</section>
+{% endblock %}

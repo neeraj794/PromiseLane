@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Edit profile | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'authen/update_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="account-page form-page">
+    <a class="form-back-link" href="{% url 'profile' %}">
+        <span aria-hidden="true">←</span> Back to profile
+    </a>
+    <header class="account-heading">
+        <span class="eyebrow">Make it yours</span>
+        <h1>Edit your profile</h1>
+        <p>Update your details and profile photo.</p>
+    </header>
+    <div class="account-card">
+        <form class="account-form" action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ user_form.non_field_errors }}
+            {% for field in user_form %}
+            <div class="form-field{% if field.errors %} has-errors{% endif %}">
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+            {% endfor %}
+            {{ profile_form.non_field_errors }}
+            {% for field in profile_form %}
+            <div class="form-field{% if field.errors %} has-errors{% endif %}">
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+            {% endfor %}
+            <button type="submit">Save changes</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

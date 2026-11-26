@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Update matchmaking profile | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'user_profile/update_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="matchmaking-form-page">
+    <a class="form-back-link" href="{% url 'profile' %}">
+        <span aria-hidden="true">←</span> Back to profile
+    </a>
+    <header class="matchmaking-form-heading">
+        <span class="profile-eyebrow">Matchmaking profile</span>
+        <h1>Update your details</h1>
+        <p>Keep your profile accurate and up to date.</p>
+    </header>
+    <div class="matchmaking-form-card">
+        <form action="" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="matchmaking-form-field{% if field.errors %} has-errors{% endif %}">
+            {{ field.label_tag }}
+            {{ field }}
+            {{ field.errors }}
+        </div>
+        {% endfor %}
+        <div class="matchmaking-form-actions">
+            <a class="profile-button profile-button-light" href="{% url 'profile' %}">Cancel</a>
+            <button type="submit">Save changes</button>
+        </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

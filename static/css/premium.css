@@ -1,0 +1,546 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap');
+
+:root {
+    --font-sans: 'Manrope', 'DM Sans', sans-serif;
+    --font-serif: 'DM Serif Display', 'Playfair Display', Georgia, serif;
+    --indigo: #4f4b82;
+    --indigo-dark: #3d3a67;
+    --coral: #d96f79;
+    --coral-light: #f8e7e6;
+    --gold: #c79a5b;
+    --ink: #302e3a;
+    --muted: #746f78;
+    --wine: var(--indigo);
+    --wine-dark: var(--indigo-dark);
+    --rose: #f1edf5;
+    --line: #e9e4e1;
+}
+
+body {
+    background:
+        radial-gradient(circle at 4% 10%, rgba(217, 111, 121, 0.14), transparent 19rem),
+        radial-gradient(circle at 96% 84%, rgba(79, 75, 130, 0.14), transparent 23rem),
+        linear-gradient(145deg, #fffdf9 0%, #f8f4ed 100%);
+    font-family: var(--font-sans);
+    color: var(--ink);
+}
+
+body::before {
+    top: -8rem;
+    right: -8rem;
+    width: 24rem;
+    height: 24rem;
+    border: 1px solid rgba(79, 75, 130, 0.12);
+}
+
+body::after {
+    position: fixed;
+    z-index: -1;
+    right: 6%;
+    bottom: 3%;
+    width: 18rem;
+    height: 18rem;
+    border: 1px solid rgba(199, 154, 91, 0.12);
+    border-radius: 50%;
+    content: "";
+    pointer-events: none;
+}
+
+h1,
+h2,
+h3,
+.auth-intro h1,
+.forgot-intro h1,
+.dashboard-welcome h1,
+.matchmaking-form-heading h1 {
+    font-family: var(--font-serif);
+    letter-spacing: -0.025em;
+}
+
+.page-content {
+    width: min(100% - 3rem, 1180px);
+    padding-top: clamp(2.25rem, 6vw, 4.25rem);
+    padding-bottom: 5rem;
+}
+
+.site-header {
+    border-bottom: 1px solid rgba(79, 75, 130, 0.12);
+    background: rgba(255, 253, 249, 0.86);
+}
+
+.navbar {
+    min-height: 80px;
+}
+
+.brand-mark {
+    width: 48px;
+    height: 48px;
+    border: 0;
+    background: transparent;
+}
+
+.brand-copy strong {
+    font-family: var(--font-serif);
+    font-size: 1.18rem;
+    letter-spacing: 0.055em;
+}
+
+.nav-link {
+    min-height: 42px;
+    color: #55505d;
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+}
+
+.nav-link:not(.nav-register)::after {
+    background: linear-gradient(90deg, var(--coral), var(--indigo));
+}
+
+.nav-link.nav-register,
+.nav-link.nav-logout {
+    border-radius: 999px;
+}
+
+.nav-link.nav-register {
+    border-color: var(--indigo);
+    background: linear-gradient(110deg, var(--indigo), #686397);
+    color: #fff;
+}
+
+.nav-link.nav-register:hover {
+    background: var(--indigo-dark);
+}
+
+.auth-page,
+.forgot-page {
+    max-width: 1080px;
+}
+
+.auth-intro h1,
+.forgot-intro h1 {
+    max-width: 11ch;
+    font-size: clamp(3.2rem, 6vw, 5.35rem);
+}
+
+.auth-intro h1 em,
+.forgot-intro h1 em {
+    color: var(--indigo);
+    text-decoration-color: rgba(217, 111, 121, 0.48);
+}
+
+.auth-card,
+.forgot-card,
+.account-card,
+.matchmaking-form-card,
+.dashboard-hero,
+.profile-hero,
+.profile-filters,
+.profile-panel,
+.dashboard-panel,
+.match-card {
+    border-color: rgba(79, 75, 130, 0.12);
+    border-radius: 1.35rem;
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(255, 250, 246, 0.88));
+    box-shadow:
+        0 28px 70px rgba(58, 48, 91, 0.09),
+        0 2px 8px rgba(58, 48, 91, 0.035);
+}
+
+.auth-card::before,
+.forgot-card::before,
+.account-card::before {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--coral), var(--indigo), transparent);
+}
+
+.auth-card-heading h2,
+.forgot-card-heading h2 {
+    font-size: 2.25rem;
+}
+
+.auth-card,
+.forgot-card,
+.account-card,
+.matchmaking-form-card {
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+}
+
+.auth-note,
+.forgot-note {
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.76);
+}
+
+.auth-note-mark,
+.forgot-note-mark,
+.discovery-icon,
+.incomplete-icon,
+.empty-icon,
+.empty-results > span {
+    background: linear-gradient(145deg, #fff, #eeeaf7);
+    box-shadow: 0 8px 20px rgba(61, 58, 103, 0.1);
+    color: var(--indigo);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea,
+.forgot-field input,
+.profile-filters input,
+.profile-filters select,
+input,
+select,
+textarea {
+    min-height: 50px;
+    border-radius: 0.75rem;
+    border-color: #e7e1dd;
+    background: rgba(255, 255, 255, 0.82);
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus,
+.forgot-field input:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 4px rgba(199, 154, 91, 0.11);
+}
+
+.auth-form button,
+.forgot-form button,
+.account-form button,
+.matchmaking-form-actions button,
+.dashboard-button,
+.filter-actions button,
+.profile-button {
+    min-height: 50px;
+    border-radius: 0.75rem;
+    background: linear-gradient(110deg, var(--indigo), #71689b);
+    box-shadow: 0 12px 26px rgba(61, 58, 103, 0.18);
+}
+
+.auth-form button:hover,
+.forgot-form button:hover,
+.account-form button:hover,
+.matchmaking-form-actions button:hover,
+.dashboard-button:hover,
+.filter-actions button:hover,
+.profile-button:hover {
+    background: linear-gradient(110deg, var(--indigo-dark), var(--coral));
+}
+
+.profile-button-light,
+.clear-empty,
+.clear-filter {
+    border-color: rgba(79, 75, 130, 0.24);
+    background: rgba(255, 255, 255, 0.82);
+    color: var(--indigo);
+    box-shadow: none;
+}
+
+.dashboard-hero,
+.profile-hero {
+    background:
+        radial-gradient(circle at 88% 20%, rgba(199, 154, 91, 0.13), transparent 12rem),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.97), rgba(244, 238, 249, 0.82));
+}
+
+.dashboard-avatar,
+.profile-photo,
+.match-avatar {
+    border-color: rgba(255, 255, 255, 0.96);
+    box-shadow:
+        0 16px 34px rgba(61, 58, 103, 0.15),
+        0 0 0 1px rgba(199, 154, 91, 0.14);
+}
+
+.dashboard-details div,
+.match-details,
+.profile-detail-grid > div,
+.detail-list > div,
+.incomplete-profile,
+.empty-results {
+    border-radius: 0.85rem;
+}
+
+.dashboard-details div,
+.profile-detail-grid > div {
+    background: rgba(255, 253, 251, 0.82);
+}
+
+.dashboard-eyebrow,
+.panel-eyebrow,
+.browse-eyebrow,
+.profile-eyebrow,
+.eyebrow,
+.forgot-eyebrow {
+    color: var(--indigo);
+}
+
+.profile-status-badge,
+.status-badge,
+.section-badge {
+    border: 1px solid rgba(79, 75, 130, 0.12);
+    background: #edf6f1;
+    color: #50775d;
+}
+
+.discovery-panel {
+    background:
+        radial-gradient(circle at 100% 0%, rgba(217, 111, 121, 0.12), transparent 11rem),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(249, 233, 231, 0.68));
+}
+
+.discovery-button {
+    background: linear-gradient(110deg, var(--indigo), var(--coral));
+}
+
+.match-card,
+.profile-panel,
+.dashboard-panel {
+    transition:
+        transform 220ms cubic-bezier(.2, .75, .25, 1),
+        box-shadow 220ms cubic-bezier(.2, .75, .25, 1),
+        border-color 220ms ease;
+}
+
+.match-card:hover,
+.profile-panel:hover,
+.dashboard-panel:hover {
+    transform: translateY(-4px);
+    border-color: rgba(79, 75, 130, 0.24);
+    box-shadow: 0 22px 50px rgba(58, 48, 91, 0.12);
+}
+
+.empty-results,
+.empty-profile {
+    border: 1px dashed rgba(79, 75, 130, 0.26);
+}
+
+.profile-hero {
+    grid-template-columns: 190px minmax(0, 1fr) auto;
+}
+
+.profile-photo-wrap {
+    width: 190px;
+    height: 224px;
+    overflow: hidden;
+    padding: 6px;
+    border: 1px solid rgba(79, 75, 130, 0.18);
+    border-radius: 1.2rem;
+    background: linear-gradient(145deg, #fff, #eeeaf7 58%, #f8e7e6);
+    box-shadow: 0 14px 32px rgba(61, 58, 103, 0.13);
+}
+
+.profile-photo {
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    border: 0;
+    border-radius: 0.85rem;
+    background: #f5f1f5;
+    object-fit: contain;
+    object-position: center;
+}
+
+.profile-status {
+    right: 12px;
+    bottom: 12px;
+    width: 20px;
+    height: 20px;
+    border-width: 4px;
+}
+
+.matchmaking-form-card {
+    background:
+        radial-gradient(circle at 100% 0, rgba(199, 154, 91, 0.08), transparent 15rem),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(250, 247, 252, 0.9));
+}
+
+.matchmaking-form-field:has(textarea) textarea,
+.matchmaking-form-field textarea {
+    min-height: 130px;
+}
+
+::selection {
+    background: #ddd7ec;
+    color: var(--indigo-dark);
+}
+
+@media (max-width: 720px) {
+    .page-content {
+        width: min(100% - 1.5rem, 1180px);
+        padding-top: 1.5rem;
+    }
+
+    .navbar {
+        min-height: 0;
+    }
+
+    .brand-mark {
+        width: 42px;
+        height: 42px;
+    }
+
+    .nav-link {
+        border-radius: 0.55rem;
+    }
+
+    .auth-card,
+    .forgot-card,
+    .account-card,
+    .matchmaking-form-card {
+        border-radius: 1.1rem;
+    }
+
+    .profile-hero {
+        grid-template-columns: 150px minmax(0, 1fr);
+    }
+
+    .profile-photo-wrap {
+        width: 150px;
+        height: 184px;
+    }
+}
+
+@media (max-width: 520px) {
+    .profile-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-photo-wrap {
+        width: 170px;
+        height: 204px;
+    }
+}
+
+@keyframes soft-rise {
+    from {
+        opacity: 0;
+        transform: translateY(28px) scale(0.985);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes ambient-drift {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(-20px, 16px, 0);
+    }
+}
+
+body::before {
+    animation: ambient-drift 20s ease-in-out infinite alternate;
+}
+
+body::after {
+    animation: ambient-drift 24s ease-in-out infinite alternate-reverse;
+}
+
+.auth-intro,
+.forgot-intro,
+.account-heading,
+.matchmaking-form-heading,
+.dashboard-hero,
+.profile-hero,
+.about-hero {
+    animation: soft-rise 560ms cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.auth-card,
+.forgot-card,
+.account-card,
+.matchmaking-form-card,
+.dashboard-panel,
+.profile-panel,
+.profile-detail-card,
+.profile-filters,
+.match-card,
+.interest-card,
+.interests-heading,
+.about-step,
+.about-control-panel,
+.about-cta,
+.blocked-card {
+    animation: soft-rise 760ms cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.auth-card,
+.forgot-card,
+.account-card,
+.matchmaking-form-card {
+    animation-delay: 120ms;
+}
+
+.profile-grid > *,
+.dashboard-grid > *,
+.dashboard-stats > *,
+.about-steps > *,
+.interest-list > *,
+.blocked-list > * {
+    animation-delay: 70ms;
+}
+
+.profile-grid > :nth-child(2),
+.dashboard-grid > :nth-child(2),
+.dashboard-stats > :nth-child(2),
+.about-steps > :nth-child(2),
+.interest-list > :nth-child(2),
+.blocked-list > :nth-child(2) {
+    animation-delay: 130ms;
+}
+
+.dashboard-stats > :nth-child(3),
+.about-steps > :nth-child(3),
+.interest-list > :nth-child(3),
+.blocked-list > :nth-child(3) {
+    animation-delay: 190ms;
+}
+
+.dashboard-stats > :nth-child(4),
+.interest-list > :nth-child(4),
+.blocked-list > :nth-child(4) {
+    animation-delay: 250ms;
+}
+
+.brand-mark {
+    transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.brand:hover .brand-mark {
+    transform: rotate(-7deg) scale(1.04);
+    box-shadow: 0 11px 26px rgba(61, 58, 103, 0.15);
+}
+
+.about-visual-card {
+    animation: gentle-float 6s ease-in-out infinite;
+}
+
+@keyframes gentle-float {
+    0%,
+    100% {
+        transform: translateY(0) rotate(-3deg);
+    }
+    50% {
+        transform: translateY(-7px) rotate(-2deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

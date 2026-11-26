@@ -1,0 +1,114 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Dashboard | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="dashboard-page">
+    <header class="dashboard-hero">
+        <div class="dashboard-welcome">
+            <span class="dashboard-eyebrow">Member dashboard</span>
+            <h1>Welcome, {{ user.first_name|default:user.username }}</h1>
+            <p>Your journey toward a meaningful, lasting relationship starts here.</p>
+        </div>
+        <div class="dashboard-avatar" aria-hidden="true">
+            {% if user.proimage.Proimage %}
+                <img src="{{ user.proimage.Proimage.url }}" alt="">
+            {% else %}
+                <span>{{ user.first_name|first|default:user.username|first|upper }}</span>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="dashboard-grid">
+        <section class="dashboard-panel matchmaking-panel">
+            <div class="panel-heading">
+                <div>
+                    <span class="panel-eyebrow">Matchmaking profile</span>
+                    <h2>{% if profile %}Your profile{% else %}Complete your profile{% endif %}</h2>
+                </div>
+                {% if profile %}
+                <span class="profile-status-badge{% if not profile.is_active %} profile-status-hidden{% endif %}">
+                    {% if profile.is_active %}Profile active{% else %}Profile hidden{% endif %}
+                </span>
+                {% endif %}
+            </div>
+
+            {% if profile %}
+            <p class="profile-summary">A clear, complete profile helps the right people find you.</p>
+            <dl class="dashboard-details">
+                <div>
+                    <dt>Religion</dt>
+                    <dd>{{ profile.religion|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Education</dt>
+                    <dd>{{ profile.education|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Occupation</dt>
+                    <dd>{{ profile.occupation|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Location</dt>
+                    <dd>{{ profile.city|default:"Not provided" }}, {{ profile.state|default:"" }}</dd>
+                </div>
+            </dl>
+            <a class="dashboard-button" href="{% url 'update_user_profile' %}">
+                Update profile <span aria-hidden="true">→</span>
+            </a>
+            {% else %}
+            <div class="incomplete-profile">
+                <span class="incomplete-icon" aria-hidden="true">♡</span>
+                <div>
+                    <h3>Take the next step</h3>
+                    <p>Please complete your matrimonial profile so we can show you compatible matches.</p>
+                </div>
+            </div>
+            <a class="dashboard-button" href="{% url 'create_profile' %}">
+                Create profile <span aria-hidden="true">→</span>
+            </a>
+            {% endif %}
+        </section>
+
+        <aside class="dashboard-panel discovery-panel">
+            <span class="discovery-icon" aria-hidden="true">♡</span>
+            <span class="panel-eyebrow">Your next chapter</span>
+            <h2>Find your perfect life partner</h2>
+            <p>Explore profiles and discover someone who shares your values and vision for the future.</p>
+            <a class="dashboard-button discovery-button" href="{% url 'browse_profiles' %}">
+                Browse profiles <span aria-hidden="true">→</span>
+            </a>
+        </aside>
+    </div>
+    <section class="dashboard-stats" aria-label="Your activity">
+        <a class="stat-card stat-card-featured" href="{% url 'browse_profiles' %}">
+            <span class="stat-icon" aria-hidden="true">♡</span>
+            <span class="stat-label">Available profiles</span>
+            <strong class="stat-value">{{ total_profiles }}</strong>
+            <span class="stat-link">Explore profiles <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="stat-card" href="{% url 'received_interests' %}">
+            <span class="stat-icon" aria-hidden="true">↓</span>
+            <span class="stat-label">Interests received</span>
+            <strong class="stat-value">{{ received_interests }}</strong>
+            <span class="stat-link">View received <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="stat-card" href="{% url 'sent_interests' %}">
+            <span class="stat-icon" aria-hidden="true">↑</span>
+            <span class="stat-label">Interests sent</span>
+            <strong class="stat-value">{{ sent_interests }}</strong>
+            <span class="stat-link">View sent <span aria-hidden="true">→</span></span>
+        </a>
+        <div class="stat-card">
+            <span class="stat-icon" aria-hidden="true">✓</span>
+            <span class="stat-label">Accepted interests</span>
+            <strong class="stat-value">{{ accepted_interests }}</strong>
+            <span class="stat-note">Mutual connections</span>
+        </div>
+    </section>
+</section>
+{% endblock %}

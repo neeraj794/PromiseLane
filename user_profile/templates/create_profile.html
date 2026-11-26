@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Create matchmaking profile | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'user_profile/create_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="matchmaking-form-page">
+    <header class="matchmaking-form-heading">
+        <span class="profile-eyebrow">New matchmaking profile</span>
+        <h1>Tell us about yourself</h1>
+        <p>Complete your details to help us find meaningful matches.</p>
+    </header>
+    <div class="matchmaking-form-card">
+        <form action="" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="matchmaking-form-field{% if field.errors %} has-errors{% endif %}">
+            {{ field.label_tag }}
+            {{ field }}
+            {{ field.errors }}
+        </div>
+        {% endfor %}
+        <div class="matchmaking-form-actions">
+            <a class="profile-button profile-button-light" href="{% url 'profile' %}">Cancel</a>
+            <button type="submit">Create profile</button>
+        </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,132 @@
+.account-page {
+    position: relative;
+    width: min(100%, 700px);
+    margin: 0 auto;
+}
+
+.account-heading {
+    margin-bottom: 2.25rem;
+    text-align: center;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.75rem;
+    color: var(--wine);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+    width: 1.3rem;
+    height: 1px;
+    background: #c99a75;
+    content: "";
+}
+
+.account-heading p {
+    margin-bottom: 0;
+    font-size: 1.02rem;
+}
+
+.account-card {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(1.4rem, 5vw, 2.5rem);
+    border: 1px solid rgba(238, 227, 223, 0.95);
+    border-radius: 1.4rem;
+    background:
+        radial-gradient(circle at 100% 0, rgba(246, 232, 229, 0.55), transparent 17rem),
+        rgba(255, 255, 255, 0.96);
+    box-shadow: 0 30px 80px rgba(76, 48, 43, 0.12), 0 3px 10px rgba(76, 48, 43, 0.04);
+}
+
+.account-card::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #c99a75, var(--wine), #d9b1a3);
+    content: "";
+}
+
+.account-form {
+    position: relative;
+    display: grid;
+    gap: 0.75rem;
+}
+
+.form-field {
+    padding: 0.15rem 0;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 0.15rem;
+    font-size: 0.88rem;
+}
+
+.form-field input {
+    margin: 0.45rem 0 0.1rem;
+    border-color: #e8dbd5;
+    background: rgba(255, 253, 252, 0.9);
+}
+
+.form-field input:hover {
+    border-color: #c9aaa0;
+}
+
+.form-field:focus-within label {
+    color: var(--wine);
+}
+
+.form-field input[type="file"] {
+    min-height: auto;
+    padding: 0.75rem;
+    border-style: dashed;
+    background: rgba(255, 250, 247, 0.9);
+}
+
+.form-field.has-errors input {
+    border-color: #b44949;
+}
+
+.errorlist {
+    margin: 0.3rem 0 0.45rem;
+    padding: 0;
+    color: #a3333a;
+    font-size: 0.82rem;
+    list-style: none;
+}
+
+.account-form > .errorlist {
+    padding: 0.7rem 0.85rem;
+    border: 1px solid #f0caca;
+    border-radius: 0.55rem;
+    background: #fff5f4;
+}
+
+.account-form button {
+    width: 100%;
+    min-height: 52px;
+    margin-top: 0.55rem;
+    background: linear-gradient(110deg, var(--wine), #9b5365);
+    box-shadow: 0 12px 24px rgba(113, 48, 68, 0.2);
+}
+
+.account-form button:hover {
+    background: linear-gradient(110deg, var(--wine-dark), #874355);
+    box-shadow: 0 15px 28px rgba(113, 48, 68, 0.26);
+}
+
+@media (max-width: 600px) {
+    .account-card {
+        border-radius: 1.1rem;
+    }
+}

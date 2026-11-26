@@ -1,0 +1,114 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}About | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="about-page">
+    <header class="about-hero">
+        <div class="about-hero-copy" data-about-reveal="left">
+            <span class="about-eyebrow">A more thoughtful way to meet</span>
+            <h1>Start with what matters.<br><em>Make room for connection.</em></h1>
+            <p>
+                PromiseLane helps you introduce yourself, discover other members, and express interest
+                at your own pace. Meaningful connections begin with getting to know one another.
+            </p>
+            <div class="about-hero-actions">
+                {% if request.user.is_authenticated %}
+                <a class="about-button about-button-primary" href="{% url 'browse_profiles' %}">
+                    Explore profiles <span aria-hidden="true">→</span>
+                </a>
+                <a class="about-button about-button-secondary" href="{% url 'profile' %}">View your profile</a>
+                {% else %}
+                <a class="about-button about-button-primary" href="{% url 'register' %}">
+                    Create your profile <span aria-hidden="true">→</span>
+                </a>
+                <a class="about-button about-button-secondary" href="{% url 'login' %}">Sign in</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="about-visual" data-about-reveal="right" aria-hidden="true">
+            <span class="about-orbit about-orbit-one"></span>
+            <span class="about-orbit about-orbit-two"></span>
+            <div class="about-visual-card">
+                <span class="visual-kicker">YOUR NEXT CHAPTER</span>
+                <span class="visual-heart">♡</span>
+                <strong>Connection begins<br>with being yourself.</strong>
+                <span class="visual-caption">Thoughtful profiles. Genuine interest.</span>
+            </div>
+            <span class="about-floating-note">Start with a hello</span>
+        </div>
+    </header>
+
+    <section class="about-section" id="how-it-works">
+        <header class="about-section-heading" data-about-reveal>
+            <span class="about-eyebrow">Simple by design</span>
+            <h2>A thoughtful path to connection</h2>
+            <p>Take each step when it feels right for you.</p>
+        </header>
+        <div class="about-steps">
+            <article class="about-step" data-about-reveal>
+                <span class="step-number">01</span>
+                <h3>Build your profile</h3>
+                <p>
+                    Share an introduction and details such as your religion, marital status,
+                    education, occupation, and location.
+                </p>
+            </article>
+            <article class="about-step" data-about-reveal>
+                <span class="step-number">02</span>
+                <h3>Discover members</h3>
+                <p>
+                    Browse active profiles and narrow your search by name, gender, religion, city,
+                    or marital status.
+                </p>
+            </article>
+            <article class="about-step" data-about-reveal>
+                <span class="step-number">03</span>
+                <h3>Express interest</h3>
+                <p>
+                    Send an interest to someone you would like to know. Review incoming interests
+                    and accept or decline them.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <section class="about-control-panel" data-about-reveal>
+        <div class="control-mark" aria-hidden="true">✦</div>
+        <div class="control-copy">
+            <span class="about-eyebrow">Your choices matter</span>
+            <h2>Stay in control of your experience</h2>
+            <p>
+                You can hide or reactivate your matchmaking profile whenever you choose.
+                You can also block members and manage your blocked list from your profile.
+                Share only the information you are comfortable including.
+            </p>
+        </div>
+        {% if request.user.is_authenticated %}
+        <a class="about-text-link" href="{% url 'profile' %}">Manage your profile <span aria-hidden="true">→</span></a>
+        {% else %}
+        <a class="about-text-link" href="{% url 'register' %}">Get started <span aria-hidden="true">→</span></a>
+        {% endif %}
+    </section>
+
+    <footer class="about-cta" data-about-reveal>
+        <span class="about-eyebrow">Your story starts here</span>
+        <h2>Ready to meet with intention?</h2>
+        <p>Create a profile, explore members, and take the next step at your own pace.</p>
+        {% if request.user.is_authenticated %}
+        <a class="about-button about-button-primary" href="{% url 'browse_profiles' %}">
+            Browse profiles <span aria-hidden="true">→</span>
+        </a>
+        {% else %}
+        <a class="about-button about-button-primary" href="{% url 'register' %}">
+            Join PromiseLane <span aria-hidden="true">→</span>
+        </a>
+        {% endif %}
+    </footer>
+</section>
+<script src="{% static 'js/about.js' %}" defer></script>
+{% endblock %}

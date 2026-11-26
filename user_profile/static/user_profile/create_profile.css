@@ -1,0 +1,101 @@
+.matchmaking-form-page {
+    width: min(100%, 820px);
+    margin: 0 auto;
+}
+
+.profile-eyebrow {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--wine);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.matchmaking-form-heading {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.matchmaking-form-heading h1 {
+    margin-bottom: 0.35rem;
+}
+
+.matchmaking-form-heading p {
+    margin: 0;
+}
+
+.matchmaking-form-card {
+    padding: clamp(1.25rem, 4vw, 2.25rem);
+    border: 1px solid rgba(238, 227, 223, 0.95);
+    border-radius: 1.1rem;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 18px 50px rgba(76, 48, 43, 0.08);
+}
+
+.matchmaking-form-card form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 1rem;
+}
+
+.matchmaking-form-field {
+    min-width: 0;
+}
+
+.matchmaking-form-field:has(textarea),
+.matchmaking-form-actions {
+    grid-column: 1 / -1;
+}
+
+.matchmaking-form-field textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.matchmaking-form-field .errorlist {
+    margin: -0.75rem 0 0.85rem;
+    padding: 0;
+    color: #a13d4f;
+    font-size: 0.78rem;
+    list-style: none;
+}
+
+.matchmaking-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 0.35rem;
+}
+
+.profile-button {
+    display: inline-flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 1.1rem;
+    border: 1px solid var(--wine);
+    border-radius: 0.65rem;
+    background: var(--wine);
+    color: #fff;
+    font-size: 0.86rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+.profile-button-light {
+    border-color: #e6d8d3;
+    background: #fff;
+    color: var(--wine);
+}
+
+@media (max-width: 600px) {
+    .matchmaking-form-card form {
+        grid-template-columns: 1fr;
+    }
+
+    .matchmaking-form-actions {
+        display: grid;
+    }
+}

@@ -1,0 +1,121 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Browse profiles | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'css/browse_profiles.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="browse-page">
+    <header class="browse-heading">
+        <div>
+            <span class="browse-eyebrow">Discover a meaningful connection</span>
+            <h1>Browse profiles</h1>
+        </div>
+        <p class="browse-count">{{ profiles|length }} profile{{ profiles|length|pluralize }} found</p>
+    </header>
+
+    <form class="profile-filters" action="" method="GET">
+        <div class="filter-intro">
+            <span class="filter-intro-icon" aria-hidden="true">⌕</span>
+            <div>
+                <h2>Find someone who feels right</h2>
+                <p>Refine your search by name, location, or background.</p>
+            </div>
+        </div>
+        <div class="filter-field filter-search">
+            <label for="search">Name</label>
+            <input id="search" type="text" name="search" value="{{ request.GET.search }}" placeholder="Search by name">
+        </div>
+        <div class="filter-field">
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender">
+                <option value="">All genders</option>
+                <option value="Male" {% if request.GET.gender == 'Male' %}selected{% endif %}>Male</option>
+                <option value="Female" {% if request.GET.gender == 'Female' %}selected{% endif %}>Female</option>
+            </select>
+        </div>
+        <div class="filter-field">
+            <label for="religion">Religion</label>
+            <select name="religion" id="religion">
+                <option value="">All religions</option>
+                <option value="Hindu" {% if request.GET.religion == 'Hindu' %}selected{% endif %}>Hindu</option>
+                <option value="Muslim" {% if request.GET.religion == 'Muslim' %}selected{% endif %}>Muslim</option>
+                <option value="Christian" {% if request.GET.religion == 'Christian' %}selected{% endif %}>Christian</option>
+                <option value="Other" {% if request.GET.religion == 'Other' %}selected{% endif %}>Other</option>
+            </select>
+        </div>
+        <div class="filter-field">
+            <label for="city">City</label>
+            <input id="city" type="text" name="city" value="{{ request.GET.city }}" placeholder="Enter city">
+        </div>
+        <div class="filter-field">
+            <label for="marital_status">Marital status</label>
+            <select name="marital_status" id="marital_status">
+                <option value="">All statuses</option>
+                <option value="Single" {% if request.GET.marital_status == 'Single' %}selected{% endif %}>Single</option>
+                <option value="Divorced" {% if request.GET.marital_status == 'Divorced' %}selected{% endif %}>Divorced</option>
+                <option value="Widowed" {% if request.GET.marital_status == 'Widowed' %}selected{% endif %}>Widowed</option>
+            </select>
+        </div>
+        <div class="filter-actions">
+            <button type="submit">Search</button>
+            <a class="clear-filter" href="{% url 'browse_profiles' %}">Clear filters</a>
+        </div>
+    </form>
+
+    {% if profiles %}
+    <div class="profile-grid">
+        {% for profile in profiles %}
+        <article class="match-card">
+            <div class="match-card-top">
+                <div class="match-avatar">
+                    {% if profile.user.proimage %}
+                        <img src="{{ profile.user.proimage.Proimage.url }}" alt="{{ profile.user.get_full_name|default:profile.user.username }}">
+                    {% else %}
+                        <span>{{ profile.user.first_name|first|default:"?" }}</span>
+                    {% endif %}
+                </div>
+                <div class="match-name">
+                    <h2>{{ profile.user.get_full_name|default:profile.user.username }}</h2>
+                    <p>{{ profile.city }}, {{ profile.state }}</p>
+                </div>
+                {% if profile.marital_status %}
+                <span class="status-badge">{{ profile.marital_status }}</span>
+                {% endif %}
+            </div>
+
+            <dl class="match-details">
+                <div>
+                    <dt>Religion</dt>
+                    <dd>{{ profile.religion|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Education</dt>
+                    <dd>{{ profile.education|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Occupation</dt>
+                    <dd>{{ profile.occupation|default:"Not provided" }}</dd>
+                </div>
+            </dl>
+            {% if profile.about %}
+            <p class="match-about">{{ profile.about|truncatewords:20 }}</p>
+            {% endif %}
+            <a class="match-card-action" href="{% url 'profile_detail' profile.id %}">
+                View full profile <span aria-hidden="true">→</span>
+            </a>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <section class="empty-results">
+        <span aria-hidden="true">♡</span>
+        <h2>No profiles found</h2>
+        <p>Try clearing your filters or changing the search criteria.</p>
+        <a class="clear-empty" href="{% url 'browse_profiles' %}">Clear filters</a>
+    </section>
+    {% endif %}
+</section>
+{% endblock %}

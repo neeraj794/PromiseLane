@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Received interests | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'connections/interests.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="interests-page">
+    <header class="interests-heading">
+        <div>
+            <span class="interests-eyebrow">People who noticed you</span>
+            <h1>Received interests</h1>
+            <p>Review and respond to people who are interested in connecting.</p>
+        </div>
+        <span class="interests-count">{{ interests|length }} received</span>
+    </header>
+
+    {% if interests %}
+    <div class="interest-list">
+        {% for interest in interests %}
+        <article class="interest-card">
+            <div class="interest-avatar" aria-hidden="true">
+                {{ interest.sender.first_name|first|default:interest.sender.username|first|upper }}
+            </div>
+            <div class="interest-person">
+                <span class="interest-label">Sent you an interest</span>
+                <h2>{{ interest.sender.get_full_name|default:interest.sender.username }}</h2>
+                <p>@{{ interest.sender.username }}</p>
+            </div>
+            <div class="interest-meta">
+                <span class="interest-status interest-status-{{ interest.status|lower }}">{{ interest.status }}</span>
+                <time datetime="{{ interest.created_at|date:'c' }}">Received {{ interest.created_at|date:"M j, Y" }}</time>
+            </div>
+            {% if interest.status == 'Pending' %}
+            <form class="interest-actions" action="{% url 'respond_interests' interest.id %}" method="POST">
+                {% csrf_token %}
+                <button class="interest-action-accept" type="submit" name="action" value="accept">Accept</button>
+                <button class="interest-action-reject" type="submit" name="action" value="reject">Decline</button>
+            </form>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <section class="interests-empty">
+        <span class="interests-empty-icon" aria-hidden="true">♡</span>
+        <h2>No received interests yet</h2>
+        <p>When someone is interested in connecting, their request will appear here.</p>
+        <a class="interests-link" href="{% url 'browse_profiles' %}">Browse profiles</a>
+    </section>
+    {% endif %}
+</section>
+{% endblock %}

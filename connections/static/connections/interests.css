@@ -1,0 +1,279 @@
+.interests-page {
+    display: grid;
+    gap: 1.5rem;
+    width: min(100%, 980px);
+    margin: 0 auto;
+}
+
+.interests-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.75rem;
+    border: 1px solid rgba(238, 227, 223, 0.9);
+    border-radius: 1.2rem;
+    background:
+        radial-gradient(circle at 95% 0, rgba(246, 232, 229, 0.85), transparent 17rem),
+        rgba(255, 255, 255, 0.82);
+    box-shadow: 0 16px 42px rgba(76, 48, 43, 0.06);
+}
+
+.interests-heading h1 {
+    margin: 0.25rem 0 0.4rem;
+}
+
+.interests-heading p {
+    margin: 0;
+}
+
+.interests-eyebrow {
+    color: var(--wine);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.interests-count {
+    flex: 0 0 auto;
+    padding: 0.55rem 0.85rem;
+    border: 1px solid rgba(136, 61, 80, 0.14);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--wine);
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.interest-list {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.interest-card {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.15rem 1.3rem;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 12px 32px rgba(76, 48, 43, 0.055);
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.interest-card:hover {
+    transform: translateY(-2px);
+    border-color: #decac4;
+    box-shadow: 0 16px 38px rgba(76, 48, 43, 0.09);
+}
+
+.interest-avatar {
+    display: grid;
+    width: 60px;
+    height: 60px;
+    place-items: center;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #f8ece9, #ecd5d6);
+    box-shadow: 0 5px 16px rgba(113, 48, 68, 0.12);
+    color: var(--wine);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.interest-person {
+    min-width: 0;
+}
+
+.interest-label {
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.interest-person h2 {
+    overflow: hidden;
+    margin: 0.1rem 0;
+    font-size: 1.2rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.interest-person p {
+    margin: 0;
+    font-size: 0.84rem;
+}
+
+.interest-meta {
+    display: grid;
+    justify-items: end;
+    gap: 0.45rem;
+    text-align: right;
+}
+
+.interest-meta time {
+    color: var(--muted);
+    font-size: 0.78rem;
+}
+
+.interest-status {
+    display: inline-flex;
+    min-height: 28px;
+    align-items: center;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    background: #f3eee9;
+    color: #685a56;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+.interest-status-pending {
+    background: #fff2d9;
+    color: #8d5a12;
+}
+
+.interest-status-accepted {
+    background: #e8f4eb;
+    color: #397348;
+}
+
+.interest-status-rejected {
+    background: #f8e9e9;
+    color: #99534f;
+}
+
+.interest-actions {
+    grid-column: 2 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid #f1e8e4;
+}
+
+.interest-actions button {
+    min-height: 40px;
+    padding: 0.55rem 1rem;
+    font-size: 0.86rem;
+}
+
+.interest-actions .interest-action-reject {
+    border: 1px solid #eadbd7;
+    background: #fff;
+    box-shadow: none;
+    color: #725d57;
+}
+
+.interest-actions .interest-action-reject:hover {
+    border-color: #d7b8b3;
+    background: #fbf3f1;
+    color: var(--wine-dark);
+}
+
+.interests-empty {
+    display: grid;
+    min-height: 310px;
+    justify-items: center;
+    align-content: center;
+    padding: 2rem;
+    border: 1px dashed #dfcfc9;
+    border-radius: 1.1rem;
+    background: rgba(255, 255, 255, 0.72);
+    text-align: center;
+}
+
+.interests-empty-icon {
+    display: grid;
+    width: 62px;
+    height: 62px;
+    place-items: center;
+    margin-bottom: 0.9rem;
+    border-radius: 50%;
+    background: var(--rose);
+    color: var(--wine);
+    font-size: 1.7rem;
+}
+
+.interests-empty h2 {
+    margin-bottom: 0.4rem;
+    font-size: 1.5rem;
+}
+
+.interests-empty p {
+    max-width: 430px;
+}
+
+.interests-link {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.4rem;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--wine);
+    border-radius: 0.6rem;
+    background: var(--wine);
+    color: #fff;
+    font-size: 0.86rem;
+    font-weight: 800;
+    transition: transform 160ms ease, background 160ms ease;
+}
+
+.interests-link:hover {
+    transform: translateY(-1px);
+    background: var(--wine-dark);
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .interests-page {
+        gap: 1rem;
+    }
+
+    .interests-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.85rem;
+        padding: 1.25rem;
+    }
+
+    .interest-card {
+        grid-template-columns: 52px minmax(0, 1fr);
+        gap: 0.8rem;
+        padding: 1rem;
+    }
+
+    .interest-avatar {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+    }
+
+    .interest-meta {
+        grid-column: 2;
+        justify-items: start;
+        text-align: left;
+    }
+
+    .interest-actions {
+        grid-column: 1 / -1;
+        justify-content: stretch;
+    }
+
+    .interest-actions button {
+        flex: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .interest-card,
+    .interests-link {
+        transition: none;
+    }
+}

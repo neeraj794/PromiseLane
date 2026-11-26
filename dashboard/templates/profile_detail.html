@@ -1,0 +1,124 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}{{ profile.user.get_full_name|default:profile.user.username }} | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'css/profile_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="profile-detail-page">
+    {% if messages %}
+    <div class="profile-messages" role="status">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="profile-detail-topbar">
+        <a class="profile-back" href="{% url 'browse_profiles' %}">
+            <span aria-hidden="true">&#8592;</span>
+            Back to browse
+        </a>
+        <a class="profile-report" href="{% url 'report_profile' profile.id %}">
+            Report Profile
+        </a>
+    </div>
+
+    <article class="profile-detail-card">
+        <aside class="profile-detail-sidebar">
+            <div class="profile-detail-photo">
+                {% if profile.user.proimage %}
+                <img src="{{ profile.user.proimage.Proimage.url }}"
+                    alt="{{ profile.user.get_full_name|default:profile.user.username }}">
+                {% else %}
+                <span>{{ profile.user.first_name|first|default:"?" }}</span>
+                {% endif %}
+            </div>
+
+            <div class="profile-detail-identity">
+                <span class="profile-detail-label">Member profile</span>
+                <h1>{{ profile.user.get_full_name|default:profile.user.username }}</h1>
+                <p>{{ profile.city }}, {{ profile.state }}</p>
+            </div>
+
+            {% if profile.marital_status %}
+            <span class="profile-detail-status">{{ profile.marital_status }}</span>
+            {% endif %}
+        </aside>
+
+        <div class="profile-detail-main">
+            <header class="profile-detail-heading">
+                <div>
+                    <span class="profile-detail-eyebrow">About this member</span>
+                    <h2>Profile details</h2>
+                </div>
+            </header>
+
+            <dl class="profile-detail-grid">
+                <div>
+                    <dt>Gender</dt>
+                    <dd>{{ profile.user.gender|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Age</dt>
+                    <dd>{{ profile.user.age|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Date of birth</dt>
+                    <dd>{{ profile.user.dob|date:"F j, Y"|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Religion</dt>
+                    <dd>{{ profile.religion|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Caste</dt>
+                    <dd>{{ profile.caste|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Height</dt>
+                    <dd>{{ profile.height|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Education</dt>
+                    <dd>{{ profile.education|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Occupation</dt>
+                    <dd>{{ profile.occupation|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Annual income</dt>
+                    <dd>{{ profile.annual_income|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Location</dt>
+                    <dd>{{ profile.city }}, {{ profile.state }}</dd>
+                </div>
+            </dl>
+
+            <section class="profile-about">
+                <span class="profile-detail-eyebrow">A little about me</span>
+                <h3>About</h3>
+                <p>{{ profile.about|default:"This member has not added an about description yet." }}</p>
+            </section>
+
+            <div class="profile-detail-actions">
+                <form class="profile-detail-action" action="{% url 'send_interest' profile.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">
+                        <span aria-hidden="true">&#9825;</span>
+                        Send Interest
+                    </button>
+                </form>
+                <form class="profile-detail-block" action="{% url 'block_user' profile.user.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Block User</button>
+                </form>
+            </div>
+        </div>
+    </article>
+</section>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Report Profile | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'connections/report_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="report-page">
+    <a class="report-back" href="{% url 'profile_detail' profile.id %}">
+        <span aria-hidden="true">&#8592;</span>
+        Back to profile
+    </a>
+
+    <div class="report-layout">
+        <aside class="report-intro">
+            <span class="report-icon" aria-hidden="true">!</span>
+            <span class="report-eyebrow">Safety and community</span>
+            <h1>Report a profile</h1>
+            <p class="report-intro-copy">
+                Help us keep PromiseLane respectful. Tell us what concerns you about this profile
+                and our team will review your report.
+            </p>
+
+            <div class="report-member">
+                <span class="report-avatar" aria-hidden="true">
+                    {{ profile.user.get_full_name|default:profile.user.username|first|upper }}
+                </span>
+                <span class="report-member-copy">
+                    <span>Profile you are reporting</span>
+                    <strong>{{ profile.user.get_full_name|default:profile.user.username }}</strong>
+                </span>
+            </div>
+
+            <div class="report-privacy">
+                <strong>Your report is private</strong>
+                <p>The member will not be told who submitted it.</p>
+            </div>
+        </aside>
+
+        <div class="report-card">
+            <div class="report-card-heading">
+                <span class="report-eyebrow">Tell us what happened</span>
+                <h2>Why are you reporting this profile?</h2>
+                <p>Select the closest reason and add details if you can.</p>
+            </div>
+
+            <form class="report-form" action="" method="POST">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+
+                <div class="report-field">
+                    {{ form.reason.label_tag }}
+                    {{ form.reason }}
+                    {{ form.reason.errors }}
+                </div>
+                <div class="report-field">
+                    {{ form.description.label_tag }}
+                    {{ form.description }}
+                    {{ form.description.errors }}
+                </div>
+
+                <div class="report-actions">
+                    <a class="report-cancel" href="{% url 'profile_detail' profile.id %}">Cancel</a>
+                    <button class="report-submit" type="submit">Submit report</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

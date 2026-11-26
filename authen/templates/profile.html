@@ -1,0 +1,147 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Your profile | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'authen/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="profile-page">
+    <div class="profile-hero">
+        <div class="profile-photo-wrap">
+            <img class="profile-photo" src="{{ pro_image.Proimage.url }}" alt="Profile photo for {{ request.user.username }}">
+            {% if matrimonial_profile %}
+            <span class="profile-status{% if not matrimonial_profile.is_active %} profile-status-hidden{% endif %}" aria-label="{% if matrimonial_profile.is_active %}Profile active{% else %}Profile hidden{% endif %}"></span>
+            {% endif %}
+        </div>
+        <div class="profile-intro">
+            <span class="profile-eyebrow">Your profile</span>
+            <h1>{{ request.user.get_full_name|default:request.user.username }}</h1>
+            <p>@{{ request.user.username }}</p>
+        </div>
+        <div class="profile-hero-actions">
+            <a class="profile-button" href="{% url 'update_profile' %}">
+                <span aria-hidden="true">✎</span> Edit account
+            </a>
+            {% if matrimonial_profile %}
+            <a class="profile-button profile-button-light" href="{% url 'update_user_profile' %}">
+                Edit matchmaking profile
+            </a>
+            {% else %}
+            <a class="profile-button profile-button-light" href="{% url 'create_profile' %}">
+                Complete matchmaking profile
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="profile-grid">
+        <aside class="profile-sidebar">
+            <section class="profile-panel">
+                <div class="panel-heading">
+                    <h2>Account details</h2>
+                </div>
+                <dl class="detail-list">
+                    <div>
+                        <dt>Email</dt>
+                        <dd>{{ request.user.email|default:"Not provided" }}</dd>
+                    </div>
+                    <div>
+                        <dt>Phone</dt>
+                        <dd>{% if request.user.phone %}{{ request.user.phone }}{% else %}Not provided{% endif %}</dd>
+                    </div>
+                    <div>
+                        <dt>Gender</dt>
+                        <dd>{{ request.user.gender|default:"Not provided" }}</dd>
+                    </div>
+                    <div>
+                        <dt>Date of birth</dt>
+                        <dd>{% if request.user.dob %}{{ request.user.dob|date:"d M Y" }}{% else %}Not provided{% endif %}</dd>
+                    </div>
+                </dl>
+                <a class="text-action" href="{% url 'update_password' %}">
+                    Change password <span aria-hidden="true">→</span>
+                </a>
+            </section>
+        </aside>
+
+        <div class="profile-main">
+            {% if matrimonial_profile %}
+            <section class="profile-panel about-panel">
+                <div class="panel-heading">
+                    <h2>About</h2>
+                    <span class="section-badge">Matchmaking profile</span>
+                </div>
+                <p class="about-text">{{ matrimonial_profile.about|default:"No introduction has been added yet." }}</p>
+            </section>
+
+            <section class="profile-panel">
+                <div class="panel-heading">
+                    <h2>Profile information</h2>
+                </div>
+                <dl class="profile-detail-grid">
+                    <div><dt>Religion</dt><dd>{{ matrimonial_profile.religion|default:"Not provided" }}</dd></div>
+                    <div><dt>Caste</dt><dd>{{ matrimonial_profile.caste|default:"Not provided" }}</dd></div>
+                    <div><dt>Marital status</dt><dd>{{ matrimonial_profile.marital_status|default:"Not provided" }}</dd></div>
+                    <div><dt>Height</dt><dd>{{ matrimonial_profile.height|default:"Not provided" }}</dd></div>
+                    <div><dt>Education</dt><dd>{{ matrimonial_profile.education|default:"Not provided" }}</dd></div>
+                    <div><dt>Occupation</dt><dd>{{ matrimonial_profile.occupation|default:"Not provided" }}</dd></div>
+                    <div><dt>Annual income</dt><dd>{{ matrimonial_profile.annual_income|default:"Not provided" }}</dd></div>
+                    <div><dt>Location</dt><dd>{{ matrimonial_profile.city }}, {{ matrimonial_profile.state }}</dd></div>
+                </dl>
+            </section>
+            {% else %}
+            <section class="profile-panel empty-profile">
+                <span class="empty-icon" aria-hidden="true">♡</span>
+                <h2>Complete your matchmaking profile</h2>
+                <p>Add your preferences and background so others can get to know you better.</p>
+                <a class="profile-button" href="{% url 'create_profile' %}">Create profile</a>
+            </section>
+            {% endif %}
+        </div>
+    </div>
+    {% if messages %}
+    <div class="profile-notices" aria-live="polite">
+        {% for message in messages %}
+        <div class="profile-notice{% if message.tags %} profile-notice-{{ message.tags }}{% endif %}" role="status">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if matrimonial_profile %}
+    <section class="profile-panel visibility-panel">
+        <div class="visibility-copy">
+            <span class="section-badge">Profile visibility</span>
+            {% if matrimonial_profile.is_active %}
+            <h2>Your profile is active</h2>
+            <p>Your matchmaking profile can be discovered by other members.</p>
+            {% else %}
+            <h2>Your profile is hidden</h2>
+            <p>Your matchmaking profile is hidden from other members until you reactivate it.</p>
+            {% endif %}
+        </div>
+        <form class="visibility-form" action="{% url 'toggle_profile_visibility' %}" method="POST">
+            {% csrf_token %}
+            {% if matrimonial_profile.is_active %}
+            <button class="visibility-button visibility-button-muted" type="submit">Deactivate profile</button>
+            {% else %}
+            <button class="visibility-button" type="submit">Reactivate profile</button>
+            {% endif %}
+        </form>
+    </section>
+    {% endif %}
+    <section class="profile-panel privacy-panel">
+        <div class="visibility-copy">
+            <span class="section-badge">Privacy &amp; safety</span>
+            <h2>Manage blocked users</h2>
+            <p>Review your blocked list or unblock someone.</p>
+        </div>
+        <a class="profile-button privacy-link" href="{% url 'blocked_users' %}">
+            Manage blocked users <span aria-hidden="true">→</span>
+        </a>
+    </section>
+</section>
+<script src="{% static 'authen/profile.js' %}" defer></script>
+{% endblock %}
