@@ -15,12 +15,17 @@
             <a class="nav-link{% if request.resolver_match.url_name == 'browse_profiles' %} nav-active{% endif %}" href="{% url 'browse_profiles' %}">Discover Members</a>
             <a class="nav-link{% if request.resolver_match.url_name == 'sent_interests' %} nav-active{% endif %}" href="{% url 'sent_interests' %}">Interests I've Sent</a>
             <a class="nav-link{% if request.resolver_match.url_name == 'received_interests' %} nav-active{% endif %}" href="{% url 'received_interests' %}">Interests for Me</a>
+            <a class="nav-link{% if request.resolver_match.url_name == 'partner_preferences' %} nav-active{% endif %}" href="{% url 'partner_preferences' %}">Partner Preferences</a>
             <a class="nav-link nav-logout" href="{% url 'logout' %}">Sign Out</a>
             {% else %}
             <a class="nav-link" href="{% url 'login' %}">Log In</a>
             <a class="nav-link nav-register" href="{% url 'register' %}">Register</a>
             {% endif %}
             <a class="nav-link nav-about{% if request.resolver_match.url_name == 'about' %} nav-active{% endif %}" href="{% url 'about' %}">About</a>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+                <span class="theme-toggle-icon" data-theme-icon aria-hidden="true">☾</span>
+                <span data-theme-label>Dark mode</span>
+            </button>
         </div>
     </nav>
 </header>

@@ -1,11 +1,11 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from user_profile.models import MatrimonialProfile
 from django.contrib import messages
-from .models import Interest,BlockedUser,Report
+from .models import Interest,BlockedUser,Report,PartnerPreFerences
 from django.contrib.auth.decorators import login_required
 from authen.models import CustomUser
 from django.db.models import Q
-from .forms import ReportForm
+from .forms import ReportForm,PartnerPreFerenceForm
 
 # Create your views here.
 @login_required
@@ -119,3 +119,94 @@ def report_profile(request,pk):
     else:
         form = ReportForm()
     return render(request,'report_profile.html',{'form':form,'profile':profile})
+
+@login_required
+def partner_preferences(request):
+    preference, created = PartnerPreFerences.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        form = PartnerPreFerenceForm(request.POST,instance=preference)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Partner preferences saved successfully.")
+            return redirect('matches')
+    else:
+        form = PartnerPreFerenceForm(instance=preference)
+    return render(request,'partner_preferences.html',{'form': form})
+
+
+from datetime import date, timedelta
+import calendar
+
+
+def subtract_years(value, years):
+    try:
+        return value.replace(year=value.year - years)
+    except ValueError:
+        # Handles February 29 in leap years
+        last_day = calendar.monthrange(
+            value.year - years,
+            value.month
+        )[1]
+
+
+        return value.replace(
+            year=value.year - years,
+            day=last_day
+        )
+
+
+
+
+@login_required
+def matches(request):
+    preference, created = PartnerPreFerences.objects.get_or_create(user=request.user)
+    today = date.today()
+    # Calculate DOB range from preferred age range
+    latest_dob = subtract_years(today,preference.min_age)
+    earliest_dob = subtract_years(
+        today,
+        preference.max_age + 1
+    ) + timedelta(days=1)
+
+
+    profiles = MatrimonialProfile.objects.filter(
+        is_active=True,
+        user__dob__range=(earliest_dob,latest_dob)
+    ).exclude(
+        user=request.user
+    ).select_related(
+        'user'
+    )
+
+
+    # Preferred gender
+    if preference.preferred_gender != 'Any':
+        profiles = profiles.filter(user__gender=preference.preferred_gender)
+
+
+    # Preferred religion
+    if preference.religion != 'Any':
+        profiles = profiles.filter(religion=preference.religion)
+
+
+    # Preferred marital status
+    if preference.marital_status != 'Any':
+        profiles = profiles.filter(marital_status=preference.marital_status)
+
+
+    # Preferred city
+    if preference.city:
+        profiles = profiles.filter(city__icontains=preference.city)
+
+
+    # Exclude users blocked in either direction
+    blocked_by_me = BlockedUser.objects.filter(blocker=request.user).values_list('blocked_id', flat=True)
+
+
+    blocked_me = BlockedUser.objects.filter(blocked=request.user).values_list('blocker_id', flat=True)
+
+
+    profiles = profiles.exclude(user_id__in=blocked_by_me).exclude(user_id__in=blocked_me)
+
+
+    return render(request,'matches.html',{'profiles': profiles,'preference': preference})

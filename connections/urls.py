@@ -10,5 +10,7 @@ urlpatterns = [
     path('unblock_user/<int:pk>',unblock_user,name='unblock_user'),
     path('block_user/<int:pk>',block_user,name='block_user'),
     path('blocked_users/',blocked_users,name='blocked_users'),
-    path('report_profile/<int:pk>',report_profile,name='report_profile')
+    path('report_profile/<int:pk>',report_profile,name='report_profile'),
+    path('partner_preferences/',partner_preferences,name='partner_preferences'),
+    path('matches/',matches,name='matches')
 ]

@@ -1,0 +1,73 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}Your matches | PromiseLane{% endblock %}
+{% block page_styles %}
+<link rel="stylesheet" href="{% static 'css/browse_profiles.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="browse-page matches-page">
+    <header class="browse-heading">
+        <div>
+            <span class="browse-eyebrow">Selected around your preferences</span>
+            <h1>Recommended matches</h1>
+        </div>
+        <p class="browse-count">{{ profiles|length }} match{{ profiles|length|pluralize }}</p>
+    </header>
+
+    {% if profiles %}
+    <div class="profile-grid">
+        {% for profile in profiles %}
+        <article class="match-card">
+            <div class="match-card-top">
+                <div class="match-avatar">
+                    {% if profile.user.proimage %}
+                    <img
+                        src="{{ profile.user.proimage.Proimage.url }}"
+                        alt="{{ profile.user.get_full_name|default:profile.user.username }}"
+                    >
+                    {% else %}
+                    <span aria-hidden="true">{{ profile.user.first_name|first|default:"?" }}</span>
+                    {% endif %}
+                </div>
+                <div class="match-name">
+                    <h2>{{ profile.user.get_full_name|default:profile.user.username }}</h2>
+                    <p>{{ profile.city }}{% if profile.state %}, {{ profile.state }}{% endif %}</p>
+                </div>
+                {% if profile.marital_status %}
+                <span class="status-badge">{{ profile.marital_status }}</span>
+                {% endif %}
+            </div>
+
+            <dl class="match-details">
+                <div>
+                    <dt>Religion</dt>
+                    <dd>{{ profile.religion|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Education</dt>
+                    <dd>{{ profile.education|default:"Not provided" }}</dd>
+                </div>
+                <div>
+                    <dt>Occupation</dt>
+                    <dd>{{ profile.occupation|default:"Not provided" }}</dd>
+                </div>
+            </dl>
+
+            <a class="match-card-action" href="{% url 'profile_detail' profile.id %}">
+                View full profile <span aria-hidden="true">&#8594;</span>
+            </a>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <section class="empty-results">
+        <span aria-hidden="true">&#9825;</span>
+        <h2>No matches just yet</h2>
+        <p>Try adjusting your preferences to discover more people.</p>
+        <a class="clear-empty" href="{% url 'partner_preferences' %}">Update preferences</a>
+    </section>
+    {% endif %}
+</section>
+{% endblock %}
