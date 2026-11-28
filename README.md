@@ -10,7 +10,12 @@ filter other profiles, and express interest in other members.
 - Matrimonial profiles with education, occupation, location, and other details
 - Profile browsing and filtering by gender, religion, city, and marital status
 - Interest requests with sent, received, and response views
-- Partner preferences, profile visibility controls, blocking, and profile reports
+- Saved partner preferences for age, gender, religion, marital status, and city,
+  used to recommend matching profiles
+- Profile visibility controls, blocking, and profile reports
+- Responsive profile, preferences, and match interfaces
+- Light and dark themes with a navbar toggle; the selection is saved in the
+  browser, and the system theme is used when no selection has been saved
 - Django admin interface
 
 ## Technology
